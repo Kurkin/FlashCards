@@ -6,14 +6,21 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.ifmo.kurkin.flashcards.db.FlashCardDBHelper;
 import com.ifmo.kurkin.flashcards.db.FlashCardImporter;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.os.Environment;
+
+import javax.net.ssl.HttpsURLConnection;
 
 
 public class DBCreator extends AsyncTask<Void, Void, Void> {
@@ -21,6 +28,9 @@ public class DBCreator extends AsyncTask<Void, Void, Void> {
     private ArrayList<ArrayList<String>> main;
     private SQLiteDatabase db;
     private Context context;
+    private static final String API_KEY = "81ffa832353a3a6a10c1edc26e9b975f";
+    private static final String TAG_SEARCH = "&tags=";
+    private static final String TEXT_SEARCH = "&text=";
 
     public DBCreator(Context context) {
         this.context = context;
@@ -54,7 +64,7 @@ public class DBCreator extends AsyncTask<Void, Void, Void> {
         return sub;
     }
 
-    String jsonImport(String path){
+    String jsonImport(String path) {
         try {
             InputStream is = context.getAssets().open(path);
             int size = is.available();
@@ -126,7 +136,8 @@ public class DBCreator extends AsyncTask<Void, Void, Void> {
                     }
                     try {
                         cursor.close();
-                    } catch (Exception ignored) {}
+                    } catch (Exception ignored) {
+                    }
                 }
             }
 
@@ -137,12 +148,86 @@ public class DBCreator extends AsyncTask<Void, Void, Void> {
         return null;
     }
 
-    public class PictureLoader  extends AsyncTask<String, Void, Void> {
+    public String imageLoad(String tag) {
 
-        @Override
-        protected Void doInBackground(String... params) {
-            return null;
+        try {
+
+
+            URL url = new URL("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key="
+                    + API_KEY + TAG_SEARCH + tag + "&per_page=1&page=1&format=json&nojsoncallback=1");
+            System.out.println(url);
+            long time = System.currentTimeMillis();
+            HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+            connection.connect();
+            System.out.println("connect time:" + (System.currentTimeMillis() - time));
+            time = System.currentTimeMillis();
+            InputStream res = null;
+            res = connection.getInputStream();
+
+            System.out.println("get stream time:" + (System.currentTimeMillis() - time));
+            time = System.currentTimeMillis();
+            JsonFactory factory = new JsonFactory();
+            JsonParser parser = factory.createParser(res);
+            JsonToken token = parser.nextToken();
+
+            String farmId = "";
+            String serverId = "";
+            String id = "";
+            String secret = "";
+
+            while (!token.equals(JsonToken.END_OBJECT)) {
+                token = parser.nextToken();
+                if (token.equals(JsonToken.FIELD_NAME)) {
+                    token = parser.nextToken();
+                    switch (parser.getCurrentName()) {
+                        case "id":
+                            id = parser.getText();
+                            break;
+                        case "server":
+                            serverId = parser.getText();
+                            break;
+                        case "farm":
+                            farmId = parser.getText();
+                            break;
+                        case "secret":
+                            secret = parser.getText();
+                            break;
+                    }
+                    System.out.println(parser.getCurrentName());
+                    System.out.println(parser.getText());
+                }
+            }
+            connection.disconnect();
+            url = new URL("https://farm" + farmId + ".staticflickr.com/" + serverId + "/" + id + "_" + secret + ".jpg");
+            InputStream input = url.openStream();
+
+            File folder = new File(Environment.getExternalStorageDirectory() +
+                    "/.flashcards/");
+            if (!folder.exists()) {
+                System.out.println(folder.mkdir());
+            }
+
+            try {
+                File storagePath = Environment.getExternalStorageDirectory();
+                System.out.println(storagePath.toString());
+                OutputStream output = new FileOutputStream(storagePath + "/.flashcards/" + tag + id + ".jpg");
+                try {
+                    byte[] buffer = new byte[16384];
+                    int bytesRead = 0;
+                    while ((bytesRead = input.read(buffer, 0, buffer.length)) >= 0) {
+                        output.write(buffer, 0, bytesRead);
+                    }
+                } finally {
+                    output.close();
+                }
+            } finally {
+                input.close();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
 }

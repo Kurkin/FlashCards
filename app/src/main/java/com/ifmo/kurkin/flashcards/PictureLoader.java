@@ -35,6 +35,8 @@ public class PictureLoader extends AsyncTask<String, Void, Void> {
         String tag = params[0];
 
         try {
+
+
             URL url = new URL("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key="
                     + API_KEY + TAG_SEARCH + tag + "&per_page=1&page=1&format=json&nojsoncallback=1");
             System.out.println(url);
@@ -82,9 +84,17 @@ public class PictureLoader extends AsyncTask<String, Void, Void> {
             connection.disconnect();
             url = new URL("https://farm" + farmId + ".staticflickr.com/" + serverId + "/" + id + "_" + secret + ".jpg");
             InputStream input = url.openStream();
+
+            File folder = new File(Environment.getExternalStorageDirectory() +
+                    "/.flashcards/");
+            if (!folder.exists()) {
+                System.out.println(folder.mkdir());
+            }
+
             try {
                 File storagePath = Environment.getExternalStorageDirectory();
-                OutputStream output = new FileOutputStream(storagePath + "/" + tag + id + ".jpg");
+                System.out.println(storagePath.toString());
+                OutputStream output = new FileOutputStream(storagePath + "/.flashcards/" + tag + id + ".jpg");
                 try {
                     byte[] buffer = new byte[16384];
                     int bytesRead = 0;

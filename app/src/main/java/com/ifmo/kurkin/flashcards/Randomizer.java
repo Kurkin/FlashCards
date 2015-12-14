@@ -51,6 +51,15 @@ public class Randomizer {
         return null;
     }
 
+    public Card nextCard() {
+        if (hasNext()) {
+            current++;
+            System.out.println(categoryId+" "+indexes.get(current));
+            return cardList.getCard(categoryId,indexes.get(current));
+        }
+        return null;
+    }
+
     private int[] randomIndexes(int except) {
         Random rn = new Random(System.nanoTime());
         int first = rn.nextInt(count);
