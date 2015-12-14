@@ -73,7 +73,6 @@ public abstract class FourVariantsCardActivity extends Activity {
                                 getResources().getColor(android.R.color.holo_red_dark),
                                 PorterDuff.Mode.SRC
                         );
-                    } else {
                         randomizer.mistake();
                     }
 
