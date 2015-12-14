@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.ifmo.kurkin.flashcards.db.FlashCardContract;
 
+import java.util.List;
+
 public class CardList {
 
     private SQLiteDatabase db;
@@ -49,6 +51,10 @@ public class CardList {
 
     public Cursor getCategoryCursor(int categoryId) {
         return db.query("main", new String[]{"*"}, ID + "=?", new String[]{Integer.toString(categoryId)}, null, null, null);
+    }
+
+    public Cursor getCategoryTypeCursor(String categoryType) {
+        return db.query("main", new String[]{"*"}, FlashCardContract.FlashCard.TYPE + "=?", new String[]{categoryType}, null, null, null);
     }
 
     public Cursor getCategory(String name){

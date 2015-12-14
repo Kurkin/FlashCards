@@ -33,6 +33,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
 
     private Context context;
     private DBCreator dbCreator;
+    private PictureLoader pictureLoader;
     private CursorAdapter adapter;
 
     @Override
@@ -47,76 +48,79 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
 //        dbCreator = new DBCreator(context);
 //        dbCreator.execute();
 
-        CardList store = new CardList(context);
+        pictureLoader = new PictureLoader(context);
+        pictureLoader.execute("dog");
 
-        ListView categories = (ListView) findViewById(R.id.categories_layout);
-        registerForContextMenu(categories);
-        adapter = new CategoriesCursorAdapter(this, store.getAllCategories());
-        categories.setAdapter(adapter);
-
-        categories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Cursor cursor = (Cursor) adapter.getItem(i);
-
-                String name = cursor.getString(1);
-                int id = cursor.getInt(0);
-
-                EnumMap<Language, String> title = new EnumMap<>(Language.class);
-                title.put(Language.ENG, name);
-                title.put(Language.RUS, name);
-                title.put(Language.FRA, name);
-
-                final Category category = new Category(id, title);
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setTitle(R.string.mode);
-                View v = LayoutInflater.from(view.getContext()).inflate(R.layout.mode_choose_layout, null);
-                builder.setView(v);
-                final AlertDialog dialog = builder.show();
-
-                v.findViewById(R.id.mode_word).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(view.getContext(), WordOneCardActivity.class);
-                        intent.putExtra(Preferences.INTENT_CATEGORY, category);
-                        startActivity(intent);
-                        dialog.cancel();
-                    }
-                });
-
-                v.findViewById(R.id.mode_translation).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(view.getContext(), TranslationOneCardActivity.class);
-                        intent.putExtra(Preferences.INTENT_CATEGORY, category);
-                        startActivity(intent);
-                        dialog.cancel();
-                    }
-                });
-
-                v.findViewById(R.id.mode_word_to_translation).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(view.getContext(), WordToTranslationActivity.class);
-                        intent.putExtra(Preferences.INTENT_CATEGORY, category);
-                        startActivity(intent);
-                        dialog.cancel();
-                    }
-                });
-
-                v.findViewById(R.id.mode_translation_to_word).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(view.getContext(), TranslationToWordActivity.class);
-                        intent.putExtra(Preferences.INTENT_CATEGORY, category);
-                        startActivity(intent);
-                        dialog.cancel();
-                    }
-                });
-
-            }
-        });
+//        CardList store = new CardList(context);
+//
+//        ListView categories = (ListView) findViewById(R.id.categories_layout);
+//        registerForContextMenu(categories);
+//        adapter = new CategoriesCursorAdapter(this, store.getAllCategories());
+//        categories.setAdapter(adapter);
+//
+//        categories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Cursor cursor = (Cursor) adapter.getItem(i);
+//
+//                String name = cursor.getString(1);
+//                int id = cursor.getInt(0);
+//
+//                EnumMap<Language, String> title = new EnumMap<>(Language.class);
+//                title.put(Language.ENG, name);
+//                title.put(Language.RUS, name);
+//                title.put(Language.FRA, name);
+//
+//                final Category category = new Category(id, title);
+//
+//                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+//                builder.setTitle(R.string.mode);
+//                View v = LayoutInflater.from(view.getContext()).inflate(R.layout.mode_choose_layout, null);
+//                builder.setView(v);
+//                final AlertDialog dialog = builder.show();
+//
+//                v.findViewById(R.id.mode_word).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Intent intent = new Intent(view.getContext(), WordOneCardActivity.class);
+//                        intent.putExtra(Preferences.INTENT_CATEGORY, category);
+//                        startActivity(intent);
+//                        dialog.cancel();
+//                    }
+//                });
+//
+//                v.findViewById(R.id.mode_translation).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Intent intent = new Intent(view.getContext(), TranslationOneCardActivity.class);
+//                        intent.putExtra(Preferences.INTENT_CATEGORY, category);
+//                        startActivity(intent);
+//                        dialog.cancel();
+//                    }
+//                });
+//
+//                v.findViewById(R.id.mode_word_to_translation).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Intent intent = new Intent(view.getContext(), WordToTranslationActivity.class);
+//                        intent.putExtra(Preferences.INTENT_CATEGORY, category);
+//                        startActivity(intent);
+//                        dialog.cancel();
+//                    }
+//                });
+//
+//                v.findViewById(R.id.mode_translation_to_word).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Intent intent = new Intent(view.getContext(), TranslationToWordActivity.class);
+//                        intent.putExtra(Preferences.INTENT_CATEGORY, category);
+//                        startActivity(intent);
+//                        dialog.cancel();
+//                    }
+//                });
+//
+//            }
+//        });
 
     }
 

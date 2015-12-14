@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,8 +12,8 @@ import java.util.Random;
 
 public class Randomizer {
 
-    private ArrayList<Integer> indexes, mistakeIndexes;
-    private int current, categoryId;
+    private ArrayList<Integer> indexes, mistakeIndexes, places;
+    private int current, categoryId, count;
     private CardList cardList;
 
     public Randomizer(Context context, int categoryId) {
@@ -24,18 +25,41 @@ public class Randomizer {
         for (int i = 0; i < numRows; i++) {
             indexes.add(i);
         }
+        count = (int)numRows;
         Collections.shuffle(indexes, new Random(System.nanoTime()));
-        System.out.println(numRows+" "+indexes);
+        System.out.println(numRows + " " + indexes);
         current = -1;
+        places = new ArrayList<>();
+        for (int i = 0; i < 4; i++){
+            places.add(i);
+        }
     }
 
-    public Card nextCard() {
+    public Pair<ArrayList<Card>, Integer> nextCards() {
         if (hasNext()) {
             current++;
-            System.out.println(categoryId+" "+indexes.get(current));
-            return cardList.getCard(categoryId,indexes.get(current));
+            System.out.println(categoryId + " " + indexes.get(current));
+            ArrayList<Card> result = new ArrayList<>();
+            Collections.shuffle(places, new Random(System.nanoTime()));
+            result.add(places.get(0),cardList.getCard(categoryId, indexes.get(current)));
+            int[] currentIndexes = randomIndexes(indexes.get(current));
+            result.add(places.get(1),cardList.getCard(categoryId, currentIndexes[0]));
+            result.add(places.get(2),cardList.getCard(categoryId, currentIndexes[1]));
+            result.add(places.get(3), cardList.getCard(categoryId, currentIndexes[2]));
+            return new Pair<>(result,places.get(3));
         }
         return null;
+    }
+
+    private int[] randomIndexes(int except){
+        Random rn = new Random(System.nanoTime());
+        int first = rn.nextInt(count);
+        int second = rn.nextInt(count);
+        int third = rn.nextInt(count);
+        if (first != except && second != except && third != except){
+            return new int[]{first,second,third};
+        }
+        return randomIndexes(except);
     }
 
     public void mistake() {

@@ -54,7 +54,7 @@ public class DBCreator extends AsyncTask<Void, Void, Void> {
         return sub;
     }
 
-    String JsonToString(String path){
+    String jsonImport(String path){
         try {
             InputStream is = context.getAssets().open(path);
             int size = is.available();
@@ -70,19 +70,17 @@ public class DBCreator extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        String json = JsonToString("main.json");
+        String json = jsonImport("main.json");
         JsonFactory factory = new JsonFactory();
         try {
             JsonParser parser = factory.createParser(json);
-//            parser.nextToken();
-//            parser.nextToken();
             readMain(parser);
             db = FlashCardDBHelper.getInstance(context, main).getWritableDatabase();
             FlashCardImporter flashCardImporter;
             parser.close();
             for (int i = 0; i < main.size(); i++) {
                 String name = main.get(i).get(0);
-                json = JsonToString(name + ".json");
+                json = jsonImport(name + ".json");
                 parser = factory.createParser(json);
                 flashCardImporter = new FlashCardImporter(db, name);
                 db.beginTransaction();
@@ -138,4 +136,13 @@ public class DBCreator extends AsyncTask<Void, Void, Void> {
 
         return null;
     }
+
+    public class PictureLoader  extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... params) {
+            return null;
+        }
+    }
+
 }
