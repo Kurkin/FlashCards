@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:weightSum="1"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/area"
+        android:layout_height="0dp"
+        android:layout_width="fill_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/word"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="14.5dp"
+            android:fontFamily="serif"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/translation"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="serif"
+            android:textSize="20sp"
+            android:textColor="@android:color/darker_gray" />
+
+        <RelativeLayout
+            android:padding="14.5dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:scaleType="fitStart"
+                android:layout_alignParentTop="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/action_dont_know"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:layout_width="0dp"
+            android:fontFamily="serif"
+            android:textAppearance="?android:attr/textAppearanceButton"
+            android:text="@string/action_do_not_know" />
+
+        <Button
+            android:id="@+id/action_know"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:layout_width="0dp"
+            android:fontFamily="serif"
+            android:textAppearance="?android:attr/textAppearanceButton"
+            android:text="@string/action_know" />
+
+    </LinearLayout>
+
+</LinearLayout>

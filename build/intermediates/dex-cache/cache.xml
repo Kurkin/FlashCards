@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/kurkin/AndroidStudioProjects/AndroidFlashCards/app/libs/jackson-core-2.5.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="b2ece1bd57ac7b4c315b7505b65ac79cb1da4270">
+        <dex dex="/Users/kurkin/AndroidStudioProjects/AndroidFlashCards/app/build/intermediates/pre-dexed/debug/jackson-core-2.5.0-ead815d9317b797f3a2e388645b589b3538cc28a.jar" />
+    </item>
+
+</items>

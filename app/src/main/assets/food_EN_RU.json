@@ -1,0 +1,17 @@
+{
+  "0": {
+    "lang1": "pelmeni",
+    "lang2": "пельмени",
+    "picture": "1.jpg"
+  },
+  "1": {
+    "lang1": "borsch",
+    "lang2": "борщ",
+    "picture": "2.jpg"
+  },
+  "2": {
+    "lang1": "kasha",
+    "lang2": "каша",
+    "picture": "3.jpg"
+  }
+}

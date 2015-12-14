@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Flashcards</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="categories">Categories</string>
+    <string name="mode">Select mode</string>
+    <string name="mode_word">Word</string>
+    <string name="action_view_words_list">View words list</string>
+    <string name="action_clear_rating">Clear rating</string>
+    <string name="action_know">Know</string>
+    <string name="message_congratulations">Congratulations!</string>
+    <string name="action_finish">Finish</string>
+    <string name="action_try_again">Try again</string>
+    <string name="message_finish_training">Category is learned. You can finish training and return to the category list or try again</string>
+    <string name="action_do_not_know">Don\'t know</string>
+    <string name="mode_translation">Translation</string>
+    <string name="mode_word_to_translation">Word → Translation</string>
+    <string name="mode_translation_to_word">Translation → Word</string>
+    <string name="eng">English</string>
+    <string name="fra">Français</string>
+    <string name="rus">Русский</string>
+
+</resources>

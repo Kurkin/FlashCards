@@ -1,0 +1,37 @@
+{
+  "0": {
+    "lang1": "dog",
+    "lang2": "собака",
+    "picture": "картинка_собаки.jpg"
+  },
+  "1": {
+    "lang1": "cat",
+    "lang2": "кошка",
+    "picture": "1.jpg"
+  },
+  "2": {
+    "lang1": "cow",
+    "lang2": "корова",
+    "picture": ""
+  },
+  "3": {
+    "lang1": "frog",
+    "lang2": "лягушка",
+    "picture": ""
+  },
+  "4": {
+    "lang1": "donkey",
+    "lang2": "ослик",
+    "picture": ""
+  },
+  "5": {
+    "lang1": "sheep",
+    "lang2": "овечка",
+    "picture": ""
+  },
+  "6": {
+    "lang1": "ship",
+    "lang2": "кораблик",
+    "picture": ""
+  }
+}
