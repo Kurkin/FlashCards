@@ -20,4 +20,5 @@
     <string name="fra">Français</string>
     <string name="rus">Русский</string>
 
+    <string name="done_sec_format">Готово (%1$.2f сек)</string>
 </resources>
