@@ -56,7 +56,7 @@ public class Randomizer {
         int first = rn.nextInt(count);
         int second = rn.nextInt(count);
         int third = rn.nextInt(count);
-        if (first != except && second != except && third != except) {
+        if (first != except && second != except && third != except && first != second && first != third && third != second) {
             return new int[]{first, second, third};
         }
         return randomIndexes(except);

@@ -1,13 +1,19 @@
 package com.ifmo.kurkin.flashcards;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Environment;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.StringWriter;
 import java.net.URL;
 
@@ -73,11 +79,24 @@ public class PictureLoader extends AsyncTask<String, Void, Void> {
                     System.out.println(parser.getText());
                 }
             }
-            String pictureUrl = "https://farm" + farmId + ".staticflickr.com/" + serverId + "/" + id + "_" + secret + ".jpg";
-            System.out.println(pictureUrl);
             connection.disconnect();
-
-
+            url = new URL("https://farm" + farmId + ".staticflickr.com/" + serverId + "/" + id + "_" + secret + ".jpg");
+            InputStream input = url.openStream();
+            try {
+                File storagePath = Environment.getExternalStorageDirectory();
+                OutputStream output = new FileOutputStream(storagePath + "/" + tag + id + ".jpg");
+                try {
+                    byte[] buffer = new byte[16384];
+                    int bytesRead = 0;
+                    while ((bytesRead = input.read(buffer, 0, buffer.length)) >= 0) {
+                        output.write(buffer, 0, bytesRead);
+                    }
+                } finally {
+                    output.close();
+                }
+            } finally {
+                input.close();
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
