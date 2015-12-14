@@ -45,19 +45,23 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
 
         context = this.getApplicationContext();
 
-        CardList store = null;
+        CardList cardList = null;
 
         try {
-            store = new CardList(context);
+            cardList = new CardList(context);
         } catch (SQLiteException e) {
             Intent intent = new Intent(context, DBCreator.class);
             startActivity(intent);
             return;
         }
 
+        listInit(cardList);
+    }
+
+    void listInit(CardList cardList) {
         ListView categories = (ListView) findViewById(R.id.categories_layout);
         registerForContextMenu(categories);
-        adapter = new CategoriesCursorAdapter(this, store.getAllCategories());
+        adapter = new CategoriesCursorAdapter(this, cardList.getAllCategories());
         categories.setAdapter(adapter);
 
         categories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -123,7 +127,14 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
 
             }
         });
+    }
 
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        CardList cardList = new CardList(context);
+        listInit(cardList);
     }
 
     private String[] createLanguageValues() {

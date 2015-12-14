@@ -14,6 +14,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -25,6 +26,20 @@ import javax.net.ssl.HttpsURLConnection;
 
 
 public class DBCreator extends ProgressTaskActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setDisplayHomeAsEnabled(false);
+    }
+
+    public void setDisplayHomeAsEnabled(boolean enabled) {
+        getActionBar().setDisplayHomeAsUpEnabled(enabled);
+    }
+
+    public void die() {
+        onBackPressed();
+    }
 
     @Override
     protected ProgressTask createTask() {
@@ -42,6 +57,12 @@ public class DBCreator extends ProgressTaskActivity {
         private static final String API_KEY = "81ffa832353a3a6a10c1edc26e9b975f";
         private static final String TAG_SEARCH = "&tags=";
         private static final String TEXT_SEARCH = "&text=";
+
+        @Override
+        protected void onPostExecute(TaskState state) {
+            super.onPostExecute(state);
+            die();
+        }
 
         @Override
         protected void runTask() throws IOException {

@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -61,18 +64,10 @@ public abstract class FourVariantsCardActivity extends Activity {
                 public void onClick(View view) {
                     disableButtons();
 
-                    // todo: set image
-
-                    vars[correctVarsPosition].getBackground().setColorFilter(
-                            getResources().getColor(android.R.color.holo_green_dark),
-                            PorterDuff.Mode.SRC
-                    );
+                    vars[correctVarsPosition].setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
 
                     if (finalI != correctVarsPosition) {
-                        vars[finalI].getBackground().setColorFilter(
-                                getResources().getColor(android.R.color.holo_red_dark),
-                                PorterDuff.Mode.SRC
-                        );
+                        vars[finalI].setBackgroundColor(getResources().getColor(android.R.color.holo_red_dark));
                         randomizer.mistake();
                     }
 
@@ -110,7 +105,7 @@ public abstract class FourVariantsCardActivity extends Activity {
 
     private void resetButtons() {
         for (Button b : vars) {
-            b.getBackground().clearColorFilter();
+            b.setBackgroundResource(android.R.drawable.btn_default);
             b.setEnabled(true);
         }
     }
@@ -160,7 +155,10 @@ public abstract class FourVariantsCardActivity extends Activity {
 
         word.setText(card.lang1);
 
-        //todo: set blured image
+        File pic = new File(card.picture);
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        Bitmap bitmap = BitmapFactory.decodeFile(pic.getAbsolutePath(),bmOptions);
+        image.setImageBitmap(bitmap);
 
         for (int i = 0; i < vars.length; i++) {
             vars[i].setText(testSet.first[i].lang2);

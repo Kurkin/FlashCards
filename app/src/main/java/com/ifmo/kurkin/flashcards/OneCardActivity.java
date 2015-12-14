@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.File;
 
 public abstract class OneCardActivity extends Activity {
 
@@ -18,7 +22,6 @@ public abstract class OneCardActivity extends Activity {
     private View knowButton;
     private View dontKnowButton;
     private Randomizer randomizer;
-    private Category category;
     private Card card;
 
     @Override
@@ -28,7 +31,7 @@ public abstract class OneCardActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         final Context context = this.getApplicationContext();
-        category = (Category) getIntent().getSerializableExtra(Preferences.INTENT_CATEGORY);
+        Category category = (Category) getIntent().getSerializableExtra(Preferences.INTENT_CATEGORY);
         randomizer = new Randomizer(context, category.id);
 
         area = findViewById(R.id.area);
@@ -105,6 +108,11 @@ public abstract class OneCardActivity extends Activity {
         card = randomizer.nextCard();
         getWord().setText(card.lang1);
         getTranslation().setText("");
+
+        File pic = new File(card.picture);
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        Bitmap bitmap = BitmapFactory.decodeFile(pic.getAbsolutePath(),bmOptions);
+        image.setImageBitmap(bitmap);
 
         knowButton.setEnabled(false);
         dontKnowButton.setEnabled(false);
