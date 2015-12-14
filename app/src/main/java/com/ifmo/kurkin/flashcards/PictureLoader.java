@@ -35,37 +35,53 @@ public class PictureLoader extends AsyncTask<String, Void, Void> {
             long time = System.currentTimeMillis();
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
             connection.connect();
-            System.out.println("connect time:"+(time - System.currentTimeMillis()));
+            System.out.println("connect time:" + (System.currentTimeMillis() - time));
             time = System.currentTimeMillis();
             InputStream res = null;
             res = connection.getInputStream();
 
-//            java.util.Scanner sc = new java.util.Scanner(res).useDelimiter("\\A");
-//            System.out.println(sc.next());
-            System.out.println("get stream time:"+(time - System.currentTimeMillis()));
+            System.out.println("get stream time:" + (System.currentTimeMillis() - time));
             time = System.currentTimeMillis();
             JsonFactory factory = new JsonFactory();
             JsonParser parser = factory.createParser(res);
             JsonToken token = parser.nextToken();
-            while (!token.equals(JsonToken.END_OBJECT)){
+
+            String farmId = "";
+            String serverId = "";
+            String id = "";
+            String secret = "";
+
+            while (!token.equals(JsonToken.END_OBJECT)) {
                 token = parser.nextToken();
-                switch (token){
-                    case FIELD_NAME:
-                        token = parser.nextToken();
-                        System.out.println(parser.getCurrentName());
-                        System.out.println(parser.getText());
-                    default:
-//                        System.out.println(token);
+                if (token.equals(JsonToken.FIELD_NAME)) {
+                    token = parser.nextToken();
+                    switch (parser.getCurrentName()) {
+                        case "id":
+                            id = parser.getText();
+                            break;
+                        case "server":
+                            serverId = parser.getText();
+                            break;
+                        case "farm":
+                            farmId = parser.getText();
+                            break;
+                        case "secret":
+                            secret = parser.getText();
+                            break;
+                    }
+                    System.out.println(parser.getCurrentName());
+                    System.out.println(parser.getText());
                 }
             }
-
-
+            String pictureUrl = "https://farm" + farmId + ".staticflickr.com/" + serverId + "/" + id + "_" + secret + ".jpg";
+            System.out.println(pictureUrl);
             connection.disconnect();
+
+
+
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
-
-
         return null;
     }
 }

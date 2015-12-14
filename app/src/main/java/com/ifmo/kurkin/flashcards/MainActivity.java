@@ -49,7 +49,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
 //        dbCreator.execute();
 
         pictureLoader = new PictureLoader(context);
-        pictureLoader.execute("dog");
+        pictureLoader.execute("chien");
 
 //        CardList store = new CardList(context);
 //

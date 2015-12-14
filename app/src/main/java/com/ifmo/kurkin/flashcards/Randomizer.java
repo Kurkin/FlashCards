@@ -25,39 +25,39 @@ public class Randomizer {
         for (int i = 0; i < numRows; i++) {
             indexes.add(i);
         }
-        count = (int)numRows;
+        count = (int) numRows;
         Collections.shuffle(indexes, new Random(System.nanoTime()));
         System.out.println(numRows + " " + indexes);
         current = -1;
         places = new ArrayList<>();
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
             places.add(i);
         }
     }
 
-    public Pair<ArrayList<Card>, Integer> nextCards() {
+    public Pair<Card[], Integer> nextCards() {
         if (hasNext()) {
             current++;
             System.out.println(categoryId + " " + indexes.get(current));
-            ArrayList<Card> result = new ArrayList<>();
+            Card[] result = new Card[4];
             Collections.shuffle(places, new Random(System.nanoTime()));
-            result.add(places.get(0),cardList.getCard(categoryId, indexes.get(current)));
+            result[places.get(0)] = cardList.getCard(categoryId, indexes.get(current));
             int[] currentIndexes = randomIndexes(indexes.get(current));
-            result.add(places.get(1),cardList.getCard(categoryId, currentIndexes[0]));
-            result.add(places.get(2),cardList.getCard(categoryId, currentIndexes[1]));
-            result.add(places.get(3), cardList.getCard(categoryId, currentIndexes[2]));
-            return new Pair<>(result,places.get(0));
+            result[places.get(1)] = cardList.getCard(categoryId, currentIndexes[0]);
+            result[places.get(2)] = cardList.getCard(categoryId, currentIndexes[1]);
+            result[places.get(3)] = cardList.getCard(categoryId, currentIndexes[2]);
+            return new Pair<>(result, places.get(0));
         }
         return null;
     }
 
-    private int[] randomIndexes(int except){
+    private int[] randomIndexes(int except) {
         Random rn = new Random(System.nanoTime());
         int first = rn.nextInt(count);
         int second = rn.nextInt(count);
         int third = rn.nextInt(count);
-        if (first != except && second != except && third != except){
-            return new int[]{first,second,third};
+        if (first != except && second != except && third != except) {
+            return new int[]{first, second, third};
         }
         return randomIndexes(except);
     }
