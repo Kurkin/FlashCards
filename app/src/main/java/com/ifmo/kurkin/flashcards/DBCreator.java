@@ -58,6 +58,7 @@ public class DBCreator extends AsyncTask<Void, Void, Void> {
                 parser.nextToken();
                 sub.add(parser.getText());
             }
+            sub.add(imageLoad(sub.get(1)));
         } catch (IOException e) {
 
         }
@@ -80,6 +81,7 @@ public class DBCreator extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
+        long start = System.currentTimeMillis();
         String json = jsonImport("main.json");
         JsonFactory factory = new JsonFactory();
         try {
@@ -103,6 +105,7 @@ public class DBCreator extends AsyncTask<Void, Void, Void> {
                         parser.nextToken();
                         values.add(parser.getText());
                     }
+                    values.add(imageLoad(values.get(1)));
                     flashCardImporter.insertCard(values);
                 }
                 db.setTransactionSuccessful();
@@ -144,15 +147,12 @@ public class DBCreator extends AsyncTask<Void, Void, Void> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        System.out.println("init time:" + (System.currentTimeMillis() - start));
         return null;
     }
 
     public String imageLoad(String tag) {
-
         try {
-
-
             URL url = new URL("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key="
                     + API_KEY + TAG_SEARCH + tag + "&per_page=1&page=1&format=json&nojsoncallback=1");
             System.out.println(url);

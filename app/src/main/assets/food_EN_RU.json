@@ -1,17 +1,18 @@
 {
   "0": {
     "lang1": "pelmeni",
-    "lang2": "пельмени",
-    "picture": "1.jpg"
+    "lang2": "пельмени"
   },
   "1": {
     "lang1": "borsch",
-    "lang2": "борщ",
-    "picture": "2.jpg"
+    "lang2": "борщ"
   },
   "2": {
     "lang1": "kasha",
-    "lang2": "каша",
-    "picture": "3.jpg"
+    "lang2": "каша"
+  },
+  "3": {
+    "lang1": "korablik",
+    "lang2": "кораблик"
   }
 }

@@ -3,21 +3,18 @@
     "name": "animals_EN_RU",
     "lang_from": "animals",
     "lang_to": "животные",
-    "type": "EN_RU",
-    "img": ""
+    "type": "EN_RU"
   },
   "1": {
-    "name": "animals_RU_FR",
+    "name": "animals_FR_RU",
     "lang_from": "животные",
     "lang_to": "animaux",
-    "type": "RU_FR",
-    "img": ""
+    "type": "FR_RU"
   },
   "2": {
     "name": "food_EN_RU",
     "lang_from": "food",
     "lang_to": "еда",
-    "type": "EN_RU",
-    "img": ""
+    "type": "EN_RU"
   }
 }
