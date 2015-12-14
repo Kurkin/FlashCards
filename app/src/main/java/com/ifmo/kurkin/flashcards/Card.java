@@ -28,6 +28,6 @@ public class Card {
     }
 
     public String toString() {
-        return id + " " + lang1 + "-" + lang2+" "+rating;
+        return id + " " + lang1 + "-" + lang2+" "+picture+" "+rating;
     }
 }

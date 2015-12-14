@@ -118,6 +118,7 @@ public class DBCreator extends ProgressTaskActivity {
         }
 
         public String imageLoad(String tag) {
+            String path = "";
             try {
                 URL url = new URL("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key="
                         + API_KEY + TAG_SEARCH + tag + "&per_page=1&page=1&format=json&nojsoncallback=1");
@@ -176,6 +177,7 @@ public class DBCreator extends ProgressTaskActivity {
                 try {
                     File storagePath = Environment.getExternalStorageDirectory();
                     System.out.println(storagePath.toString());
+                    path = storagePath + "/.flashcards/" + tag + id + ".jpg";
                     OutputStream output = new FileOutputStream(storagePath + "/.flashcards/" + tag + id + ".jpg");
                     try {
                         byte[] buffer = new byte[16384];
@@ -193,7 +195,7 @@ public class DBCreator extends ProgressTaskActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return null;
+            return path;
         }
 
         void readMain(JsonParser parser) {
