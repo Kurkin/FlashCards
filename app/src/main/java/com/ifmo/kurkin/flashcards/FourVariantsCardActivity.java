@@ -102,8 +102,6 @@ public abstract class FourVariantsCardActivity extends Activity {
 
     abstract Language getQuestionableLanguage();
 
-    abstract String getImageSubFolder();
-
     private void disableButtons() {
         for (Button b : vars) {
             b.setEnabled(false);
@@ -139,6 +137,9 @@ public abstract class FourVariantsCardActivity extends Activity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 randomizer = new Randomizer(context, category.id);
+                resetButtons();
+                area.setEnabled(true);
+                area.setClickable(true);
                 onStep();
             }
         });

@@ -50,8 +50,9 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
         try {
             store = new CardList(context);
         } catch (SQLiteException e) {
-            Intent intent = new Intent(context, DownloadActivity.class);
+            Intent intent = new Intent(context, DBCreator.class);
             startActivity(intent);
+            return;
         }
 
         ListView categories = (ListView) findViewById(R.id.categories_layout);

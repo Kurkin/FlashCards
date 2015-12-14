@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+
 /**
  * Таск, выполняющий скачивание файла в фоновом потоке.
  */

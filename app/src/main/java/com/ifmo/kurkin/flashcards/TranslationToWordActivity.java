@@ -12,8 +12,4 @@ public class TranslationToWordActivity extends FourVariantsCardActivity {
         return Preferences.LEARNING_LANGUAGE;
     }
 
-    @Override
-    String getImageSubFolder() {
-        return "";
-    }
 }

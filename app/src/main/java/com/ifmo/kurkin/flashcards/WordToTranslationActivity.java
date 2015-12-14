@@ -10,9 +10,4 @@ public class WordToTranslationActivity extends FourVariantsCardActivity {
     Language getQuestionableLanguage() {
         return Preferences.NATIVE_LANGUAGE;
     }
-
-    @Override
-    String getImageSubFolder() {
-        return "";
-    }
 }
