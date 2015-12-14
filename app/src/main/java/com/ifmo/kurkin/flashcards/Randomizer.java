@@ -46,7 +46,7 @@ public class Randomizer {
             result.add(places.get(1),cardList.getCard(categoryId, currentIndexes[0]));
             result.add(places.get(2),cardList.getCard(categoryId, currentIndexes[1]));
             result.add(places.get(3), cardList.getCard(categoryId, currentIndexes[2]));
-            return new Pair<>(result,places.get(3));
+            return new Pair<>(result,places.get(0));
         }
         return null;
     }
