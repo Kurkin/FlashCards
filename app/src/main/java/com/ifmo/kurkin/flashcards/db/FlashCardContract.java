@@ -17,6 +17,8 @@ public final class FlashCardContract {
         String NAME = "name";
 
         String TYPE = "type";
+
+        String COUNT = "count";
     }
 
     public static final class FlashCard implements FlashCardColumns {
@@ -28,7 +30,8 @@ public final class FlashCardContract {
                 + LANGUAGE1 + " TEXT, "
                 + LANGUAGE2 + " TEXT, "
                 + TYPE + " TEXT, "
-                + IMAGE + " TEXT)";
+                + IMAGE + " TEXT, "
+                + COUNT + " INT)";
 
         public static String CREATE_TABLE(String name) {
             return "CREATE TABLE " + name

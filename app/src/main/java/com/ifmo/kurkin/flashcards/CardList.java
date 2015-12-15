@@ -71,6 +71,17 @@ public class CardList {
 
 //    TODO: Throw exception when ID is wrong
 
+    public int getCategoryRating(int categoryId){
+        Cursor auxCursor = db.query("main", new String[]{"*"}, ID + "=?", new String[]{Integer.toString(categoryId)}, null, null, null);
+        auxCursor.moveToFirst();
+        int result = 0;
+        for (; !auxCursor.isAfterLast(); auxCursor.moveToNext()) {
+            result += new Card(auxCursor).rating;
+        }
+        auxCursor.close();
+        return result;
+    }
+
     private void updateRating(String table, int id, int newValue) {
         Cursor cursor = null;
         try {

@@ -54,7 +54,8 @@ public class FlashCardDBHelper extends SQLiteOpenHelper {
             values.put(FlashCardContract.FlashCard.LANGUAGE1, line.get(1));
             values.put(FlashCardContract.FlashCard.LANGUAGE2, line.get(2));
             values.put(FlashCardContract.FlashCard.TYPE, line.get(3));
-            values.put(FlashCardContract.FlashCard.IMAGE, line.get(4));
+            values.put(FlashCardContract.FlashCard.COUNT, line.get(4));
+            values.put(FlashCardContract.FlashCard.IMAGE, line.get(5));
             db.insert("main", null /*nullColumnHack not needed*/, values);
             db.execSQL(FlashCardContract.FlashCard.CREATE_TABLE(line.get(0)));
         }
