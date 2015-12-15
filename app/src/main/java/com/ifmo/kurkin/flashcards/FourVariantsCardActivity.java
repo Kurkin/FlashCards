@@ -35,6 +35,8 @@ public abstract class FourVariantsCardActivity extends Activity {
     private Randomizer randomizer;
     private Category category;
     private Button[] vars;
+    private Card card;
+    private CardList cardList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +44,9 @@ public abstract class FourVariantsCardActivity extends Activity {
         setContentView(R.layout.four_variants_activity);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
+        cardList = new CardList(this.getApplicationContext());
         category = (Category) getIntent().getSerializableExtra(Preferences.INTENT_CATEGORY);
-        setTitle(category.getTitle(Preferences.LEARNING_LANGUAGE));
+        setTitle(category.getTitle());
         randomizer = new Randomizer(this.getApplicationContext(), category.id);
 
         area = findViewById(R.id.area);
@@ -65,10 +68,12 @@ public abstract class FourVariantsCardActivity extends Activity {
                     disableButtons();
 
                     vars[correctVarsPosition].setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
+                    cardList.incRating(category.id, card.id);
 
                     if (finalI != correctVarsPosition) {
                         vars[finalI].setBackgroundColor(getResources().getColor(android.R.color.holo_red_dark));
                         randomizer.mistake();
+                        cardList.decRating(category.id, card.id);
                     }
 
                     area.setEnabled(true);
@@ -151,7 +156,7 @@ public abstract class FourVariantsCardActivity extends Activity {
         Pair<Card[], Integer> testSet = randomizer.nextCards();
 
         correctVarsPosition = testSet.second;
-        Card card = testSet.first[testSet.second];
+        card = testSet.first[testSet.second];
 
         word.setText(card.lang1);
 

@@ -72,12 +72,9 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
                 String name = cursor.getString(1);
                 int id = cursor.getInt(0);
 
-                EnumMap<Language, String> title = new EnumMap<>(Language.class);
-                title.put(Language.ENG, name);
-                title.put(Language.RUS, name);
-                title.put(Language.FRA, name);
+                cursor.close();
 
-                final Category category = new Category(id, title);
+                final Category category = new Category(id, name);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setTitle(R.string.mode);

@@ -23,6 +23,8 @@ public abstract class OneCardActivity extends Activity {
     private View dontKnowButton;
     private Randomizer randomizer;
     private Card card;
+    private CardList cardList;
+    private Category category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +32,10 @@ public abstract class OneCardActivity extends Activity {
         setContentView(R.layout.one_word_activity);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         final Context context = this.getApplicationContext();
-        Category category = (Category) getIntent().getSerializableExtra(Preferences.INTENT_CATEGORY);
+        cardList = new CardList(context);
+        category = (Category) getIntent().getSerializableExtra(Preferences.INTENT_CATEGORY);
         randomizer = new Randomizer(context, category.id);
 
         area = findViewById(R.id.area);
@@ -41,7 +45,7 @@ public abstract class OneCardActivity extends Activity {
         knowButton = findViewById(R.id.action_know);
         dontKnowButton = findViewById(R.id.action_dont_know);
 
-        setTitle(category.getTitle(Preferences.LEARNING_LANGUAGE));
+        setTitle(category.getTitle());
 
         area.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,12 +90,14 @@ public abstract class OneCardActivity extends Activity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 onBackPressed();
+                cardList.decRating(category.id, card.id);
             }
         });
 
         builder.setNegativeButton(R.string.action_try_again, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                cardList.incRating(category.id, card.id);
                 onStep();
             }
         });
@@ -111,7 +117,7 @@ public abstract class OneCardActivity extends Activity {
 
         File pic = new File(card.picture);
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        Bitmap bitmap = BitmapFactory.decodeFile(pic.getAbsolutePath(),bmOptions);
+        Bitmap bitmap = BitmapFactory.decodeFile(pic.getAbsolutePath(), bmOptions);
         image.setImageBitmap(bitmap);
 
         knowButton.setEnabled(false);

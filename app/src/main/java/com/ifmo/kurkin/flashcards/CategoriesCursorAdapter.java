@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.EnumMap;
 
 /**
@@ -21,12 +22,10 @@ import java.util.EnumMap;
 public class CategoriesCursorAdapter extends CursorAdapter {
 
     private LayoutInflater mInflater;
-//    private DataStore store;
 
     public CategoriesCursorAdapter(Context context, Cursor cursor) {
         super(context, cursor);
         mInflater = LayoutInflater.from(context);
-//        store = new DataStore(context);
     }
 
     @Override
@@ -39,28 +38,24 @@ public class CategoriesCursorAdapter extends CursorAdapter {
         String name = cursor.getString(1);
         int id = cursor.getInt(0);
 
-        EnumMap<Language, String> title = new EnumMap<>(Language.class);
-        title.put(Language.ENG, name);
-        title.put(Language.RUS, name);
-        title.put(Language.FRA, name);
+        final Category category = new Category(id, name);
 
-        final Category category = new Category(id, title);
+        ((TextView) view.findViewById(R.id.learning_title)).setText(category.getTitle());
+        ((TextView) view.findViewById(R.id.native_title)).setText(category.getTitle());
 
-        ((TextView) view.findViewById(R.id.learning_title)).setText(category.getTitle(Preferences.LEARNING_LANGUAGE));
-        ((TextView) view.findViewById(R.id.native_title)).setText(category.getTitle(Preferences.NATIVE_LANGUAGE));
+        ImageView icon = (ImageView) view.findViewById(R.id.category_icon);
+        File pic = new File(cursor.getString(5));
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        Bitmap bitmap = BitmapFactory.decodeFile(pic.getAbsolutePath(), bmOptions);
+        bitmap = Bitmap.createScaledBitmap(bitmap, 120, 120, true);
+        icon.setImageBitmap(bitmap);
 
-//        ImageView icon = (ImageView) view.findViewById(R.id.category_icon);
-//        AssetManager am = context.getResources().getAssets();
-
-//        String iconPath = Preferences.IMAGE_ASSETS + "/" + Preferences.SMALL_IMAGE_SUBFOLDER + "/" + eng.toLowerCase() + ".jpg";
-//        TODO: load image
-
-//        int total = store.getCardCount(id);
-//        int learned = store.getLearnedCardCount(id);
+        int total = cursor.getInt(4);
+        int learned = new CardList(context).getCategoryRating(id);
         TextView wordsCount = (TextView) view.findViewById(R.id.words_count);
-//        wordsCount.setText(learned + "/" + total);
+        wordsCount.setText(learned + "/" + total);
 
-//        ((ProgressBar) view.findViewById(R.id.progress_bar)).setProgress(total == 0 ? 100 : learned * 100 / total);
+        ((ProgressBar) view.findViewById(R.id.progress_bar)).setProgress(total == 0 ? 100 : learned * 100 / total);
     }
 }
 

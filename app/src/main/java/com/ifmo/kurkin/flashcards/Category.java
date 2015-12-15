@@ -6,14 +6,10 @@ import java.util.EnumMap;
 public class Category implements Serializable {
 
     int id;
-    EnumMap<Language, String> title;
+    String title;
 
-    public Category(int id, EnumMap<Language, String> title) {
+    public Category(int id, String title) {
         this.id = id;
-        this.title = title;
-    }
-
-    public Category(EnumMap<Language, String> title) {
         this.title = title;
     }
 
@@ -25,11 +21,7 @@ public class Category implements Serializable {
         return id;
     }
 
-    public String getTitle(Language language) {
-        return title.get(language);
-    }
-
-    public void setTitle(Language language, String title) {
-        this.title.put(language, title);
+    public String getTitle() {
+        return title;
     }
 }
