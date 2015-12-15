@@ -54,7 +54,7 @@ public abstract class OneCardActivity extends Activity {
                 dontKnowButton.setEnabled(true);
                 area.setEnabled(false);
                 area.setClickable(false);
-                getTranslation().setText(card.lang2);
+                onEndState(card);
             }
         });
 
@@ -112,8 +112,7 @@ public abstract class OneCardActivity extends Activity {
         }
 
         card = randomizer.nextCard();
-        getWord().setText(card.lang1);
-        getTranslation().setText("");
+        onBeginState(card);
 
         File pic = new File(card.picture);
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();

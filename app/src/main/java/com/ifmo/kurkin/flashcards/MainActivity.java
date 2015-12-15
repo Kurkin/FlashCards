@@ -69,12 +69,13 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Cursor cursor = (Cursor) adapter.getItem(i);
 
-                String name = cursor.getString(1);
+                String name1 = cursor.getString(2);
+                String name2 = cursor.getString(3);
                 int id = cursor.getInt(0);
 
                 cursor.close();
 
-                final Category category = new Category(id, name);
+                final Category category = new Category(id, name1);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setTitle(R.string.mode);

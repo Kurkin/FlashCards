@@ -35,17 +35,18 @@ public class CategoriesCursorAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, final Context context, Cursor cursor) {
-        String name = cursor.getString(1);
+        String name1 = cursor.getString(2);
+        String name2 = cursor.getString(3);
         int id = cursor.getInt(0);
 
-        final Category category = new Category(id, name);
+        final Category category = new Category(id, name1);
 
-        ((TextView) view.findViewById(R.id.learning_title)).setText(category.getTitle());
-        ((TextView) view.findViewById(R.id.native_title)).setText(category.getTitle());
+        ((TextView) view.findViewById(R.id.learning_title)).setText(name1);
+        ((TextView) view.findViewById(R.id.native_title)).setText(name2);
 
         ImageView icon = (ImageView) view.findViewById(R.id.category_icon);
         File pic = new File(cursor.getString(6));
-        System.out.println(id+" "+name+" "+cursor.getString(2)+" "+cursor.getString(3)+" "+cursor.getString(4)+" "+cursor.getString(5)+" "+cursor.getString(6));
+//        System.out.println(id+" "+name+" "+cursor.getString(2)+" "+cursor.getString(3)+" "+cursor.getString(4)+" "+cursor.getString(5)+" "+cursor.getString(6));
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         Bitmap bitmap = BitmapFactory.decodeFile(pic.getAbsolutePath(), bmOptions);
         bitmap = Bitmap.createScaledBitmap(bitmap, 120, 120, true);
