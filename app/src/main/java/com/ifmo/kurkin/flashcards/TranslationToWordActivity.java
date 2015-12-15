@@ -1,15 +1,16 @@
 package com.ifmo.kurkin.flashcards;
 
+import android.widget.Button;
+import android.widget.TextView;
+
 public class TranslationToWordActivity extends FourVariantsCardActivity {
-
     @Override
-    Language getTitleLanguage() {
-        return Preferences.NATIVE_LANGUAGE;
+    void setVar(Card card, Button btn) {
+        btn.setText(card.lang1);
     }
 
     @Override
-    Language getQuestionableLanguage() {
-        return Preferences.LEARNING_LANGUAGE;
+    void setTitle(Card card, TextView word) {
+        word.setText(card.lang2);
     }
-
 }

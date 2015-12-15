@@ -98,9 +98,9 @@ public abstract class FourVariantsCardActivity extends Activity {
         onStep();
     }
 
-    abstract Language getTitleLanguage();
+    abstract void setVar(Card card, Button btn);
 
-    abstract Language getQuestionableLanguage();
+    abstract void setTitle(Card card, TextView word);
 
     private void disableButtons() {
         for (Button b : vars) {
@@ -158,7 +158,7 @@ public abstract class FourVariantsCardActivity extends Activity {
         correctVarsPosition = testSet.second;
         card = testSet.first[testSet.second];
 
-        word.setText(card.lang1);
+        setTitle(card, word);
 
         File pic = new File(card.picture);
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -166,7 +166,7 @@ public abstract class FourVariantsCardActivity extends Activity {
         image.setImageBitmap(bitmap);
 
         for (int i = 0; i < vars.length; i++) {
-            vars[i].setText(testSet.first[i].lang2);
+            setVar(testSet.first[i], vars[i]);
             System.out.println(testSet.first[i].toString());
         }
     }
