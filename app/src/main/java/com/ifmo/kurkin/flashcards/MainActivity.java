@@ -70,7 +70,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
                 Cursor cursor = (Cursor) adapter.getItem(i);
 
                 String name1 = cursor.getString(2);
-                String name2 = cursor.getString(3);
                 int id = cursor.getInt(0);
 
                 cursor.close();
@@ -133,68 +132,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
         super.onRestart();
         CardList cardList = new CardList(context);
         listInit(cardList);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        CardList cardList = new CardList(context);
-        listInit(cardList);
-    }
-
-    private String[] createLanguageValues() {
-        String[] res = new String[Language.values().length];
-
-        for (int i = 0; i < Language.values().length; i++) {
-            switch (Language.values()[i]) {
-                case ENG:
-                    res[i] = getString(R.string.eng);
-                    break;
-                case FRA:
-                    res[i] = getString(R.string.fra);
-                    break;
-                case RUS:
-                    res[i] = getString(R.string.rus);
-                    break;
-            }
-        }
-
-        return res;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-
-        MenuItem item = menu.findItem(R.id.action_settings);
-        Spinner spinner = (Spinner) item.getActionView();
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(
-                this,
-                R.layout.actionbar_spinner_item,
-                createLanguageValues()
-        );
-        spinnerAdapter.setDropDownViewResource(R.layout.actionbar_spinner_dropdown_item);
-        spinner.setAdapter(spinnerAdapter);
-        spinner.setOnItemSelectedListener(this);
-        spinner.setSelection(Preferences.LEARNING_LANGUAGE.ordinal());
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
