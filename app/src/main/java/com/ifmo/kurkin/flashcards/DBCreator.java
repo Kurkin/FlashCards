@@ -57,6 +57,7 @@ public class DBCreator extends ProgressTaskActivity {
         private static final String API_KEY = "81ffa832353a3a6a10c1edc26e9b975f";
         private static final String TAG_SEARCH = "&tags=";
         private static final String TEXT_SEARCH = "&text=";
+        private static final String EXTRA = "&extras=url_n";
 
         @Override
         protected void onPostExecute(TaskState state) {
@@ -142,7 +143,7 @@ public class DBCreator extends ProgressTaskActivity {
             String path = "";
             try {
                 URL url = new URL("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key="
-                        + API_KEY + TAG_SEARCH + tag + "&per_page=1&page=1&format=json&nojsoncallback=1");
+                        + API_KEY + TAG_SEARCH + tag + EXTRA+"&per_page=1&page=1&format=json&nojsoncallback=1");
                 System.out.println(url);
                 long time = System.currentTimeMillis();
                 HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();

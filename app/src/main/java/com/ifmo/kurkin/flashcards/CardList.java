@@ -61,7 +61,7 @@ public class CardList {
         return db.query(name, new String[]{"*"}, null, null, null, null, null);
     }
 
-    public Cursor getCategory(int categoryId){
+     public Cursor getCategory(int categoryId){
         Cursor auxCursor = db.query("main", new String[]{"*"}, ID + "=?", new String[]{Integer.toString(categoryId)}, null, null, null);
         auxCursor.moveToFirst();
         Cursor result = db.query(auxCursor.getString(1), new String[]{"*"}, null, null, null, null, null);
