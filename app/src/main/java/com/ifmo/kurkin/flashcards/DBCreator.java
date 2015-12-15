@@ -200,7 +200,7 @@ public class DBCreator extends ProgressTaskActivity {
 
                 try {
                     File storagePath = Environment.getExternalStorageDirectory();
-                    System.out.println(storagePath.toString());
+                    System.out.println(url+" "+"\n"+path);
                     path = storagePath + "/.flashcards/" + tag.replace(" ","_")  + id + ".jpg";
                     OutputStream output = new FileOutputStream(storagePath + "/.flashcards/" + tag.replace(" ","_")  + id + ".jpg");
                     try {

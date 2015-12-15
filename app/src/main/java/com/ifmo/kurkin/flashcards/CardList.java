@@ -72,12 +72,16 @@ public class CardList {
 //    TODO: Throw exception when ID is wrong
 
     public int getCategoryRating(int categoryId){
-        Cursor auxCursor = db.query("main", new String[]{"*"}, ID + "=?", new String[]{Integer.toString(categoryId)}, null, null, null);
+        Cursor subCursor = db.query("main", new String[]{"*"}, ID + "=?", new String[]{Integer.toString(categoryId)}, null, null, null);
+        subCursor.moveToFirst();
+        Cursor auxCursor = db.query(subCursor.getString(1), new String[]{"*"}, null, null, null, null, null);
         auxCursor.moveToFirst();
         int result = 0;
         for (; !auxCursor.isAfterLast(); auxCursor.moveToNext()) {
+            System.out.println("!");
             result += new Card(auxCursor).rating;
         }
+        System.out.println("result is:"+result);
         auxCursor.close();
         return result;
     }
@@ -89,11 +93,7 @@ public class CardList {
         } finally {
             if (cursor != null) {
                 cursor.moveToFirst();
-                int update = cursor.getInt(4) + newValue;
-                if (newValue == 0) {
-                    update = 0;
-                }
-                String strSQL = "UPDATE " + table + " SET rating = " + (Integer.toString(update)) + " WHERE " + ID + " = " + id;
+                String strSQL = "UPDATE " + table + " SET rating = " + (Integer.toString(newValue)) + " WHERE " + ID + " = " + id;
                 db.execSQL(strSQL);
                 try {
                     cursor.close();
@@ -123,17 +123,7 @@ public class CardList {
     }
 
     public void decRating(String table, int cardId) {
-        updateRating(table, cardId, -1);
-    }
-
-    public void clearRating(int categoryID, int cardId){
-        Cursor categoryCursor = getCategoryCursor(categoryID);
-        categoryCursor.moveToFirst();
-        clearRating(categoryCursor.getString(1), cardId);
-        categoryCursor.close();
-    }
-
-    public void clearRating(String table, int cardId) {
         updateRating(table, cardId, 0);
     }
+
 }
