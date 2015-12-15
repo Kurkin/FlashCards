@@ -30,8 +30,8 @@ public final class FlashCardContract {
                 + LANGUAGE1 + " TEXT, "
                 + LANGUAGE2 + " TEXT, "
                 + TYPE + " TEXT, "
-                + IMAGE + " TEXT, "
-                + COUNT + " INT)";
+                + COUNT + " INT, "
+                + IMAGE + " TEXT)";
 
         public static String CREATE_TABLE(String name) {
             return "CREATE TABLE " + name
