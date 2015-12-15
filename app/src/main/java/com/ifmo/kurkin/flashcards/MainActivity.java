@@ -135,6 +135,13 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
         listInit(cardList);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CardList cardList = new CardList(context);
+        listInit(cardList);
+    }
+
     private String[] createLanguageValues() {
         String[] res = new String[Language.values().length];
 
