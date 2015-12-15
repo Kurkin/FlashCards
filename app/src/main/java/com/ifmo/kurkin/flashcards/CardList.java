@@ -78,7 +78,6 @@ public class CardList {
         auxCursor.moveToFirst();
         int result = 0;
         for (; !auxCursor.isAfterLast(); auxCursor.moveToNext()) {
-            System.out.println("!");
             result += new Card(auxCursor).rating;
         }
         System.out.println("result is:" + result);

@@ -8,8 +8,8 @@
   },
   "1": {
     "name": "animals_FR_RU",
-    "lang_from": "животные",
-    "lang_to": "animaux",
+    "lang_from": "animaux",
+    "lang_to": "животные",
     "type": "FR_RU",
 	"count": "4"
   },
