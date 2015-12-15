@@ -57,7 +57,8 @@ public class DBCreator extends ProgressTaskActivity {
         private static final String API_KEY = "81ffa832353a3a6a10c1edc26e9b975f";
         private static final String TAG_SEARCH = "&tags=";
         private static final String TEXT_SEARCH = "&text=";
-        private static final String EXTRA = "&extras=url_n";
+        private static final String EXTRA_CARDS= "&extras=url_q";
+        private String EXTRA = "";
 
         @Override
         protected void onPostExecute(TaskState state) {
@@ -76,6 +77,7 @@ public class DBCreator extends ProgressTaskActivity {
                 readMain(parser);
                 db = FlashCardDBHelper.getInstance(appContext, main).getWritableDatabase();
                 FlashCardImporter flashCardImporter;
+                EXTRA = EXTRA_CARDS;
                 parser.close();
                 for (int i = 0; i < main.size(); i++) {
                     int newProgress = 100 * i / main.size();
