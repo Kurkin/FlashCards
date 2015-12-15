@@ -68,9 +68,9 @@ public abstract class ProgressTaskActivity extends Activity {
         final TaskState state = task.getState();
         switch (state) {
             case NEW:       return "Start";
-            case RUNNING:   return "Dow";
+            case RUNNING:   return "Downloading";
             default:
-            case ERROR:     return "error";
+            case ERROR:     return "Error";
             case DONE:
             {
                 final double timeSec = task.getExecutionTimeMs() / 1000.0;
