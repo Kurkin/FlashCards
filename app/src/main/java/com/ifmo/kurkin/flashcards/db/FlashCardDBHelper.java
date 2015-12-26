@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class FlashCardDBHelper extends SQLiteOpenHelper {
 
-    private static final String DB_FILE_NAME = "cards.db";
+    public static final String DB_FILE_NAME = "cards.db";
 
     private static final int DB_VERSION_1 = 1;
 

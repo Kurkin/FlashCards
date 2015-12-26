@@ -26,7 +26,7 @@ public class Randomizer {
         }
         count = (int) numRows;
         Collections.shuffle(indexes, new Random(System.nanoTime()));
-        System.out.println(numRows + " " + indexes);
+//        System.out.println(numRows + " " + indexes);
         current = -1;
         places = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
@@ -37,7 +37,7 @@ public class Randomizer {
     public Pair<Card[], Integer> nextCards() {
         if (hasNext()) {
             current++;
-            System.out.println(categoryId + " " + indexes.get(current));
+//            System.out.println(categoryId + " " + indexes.get(current));
             Card[] result = new Card[4];
             Collections.shuffle(places, new Random(System.nanoTime()));
             result[places.get(0)] = cardList.getCard(categoryId, indexes.get(current));
@@ -53,7 +53,7 @@ public class Randomizer {
     public Card nextCard() {
         if (hasNext()) {
             current++;
-            System.out.println(categoryId+" "+indexes.get(current));
+//            System.out.println(categoryId+" "+indexes.get(current));
             return cardList.getCard(categoryId,indexes.get(current));
         }
         return null;

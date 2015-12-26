@@ -4,17 +4,23 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import com.ifmo.kurkin.flashcards.db.FlashCardContract;
 
+import java.io.IOException;
 import java.util.List;
 
 public class CardList {
 
     private SQLiteDatabase db;
     private String ID = FlashCardContract.FlashCard.ID;
+    private Context context;
 
     public CardList(Context context) {
         db = SQLiteDatabase.openOrCreateDatabase(context.getDatabasePath("cards.db"), null /*factory*/);
+        this.context = context;
     }
 
     public Cursor getCards(Cursor cursor) {
@@ -43,6 +49,83 @@ public class CardList {
                 cursor.close();
             }
         }
+    }
+
+    /*
+    return true, if database is valid, otherwise return false
+    */
+   public boolean isValid() {
+        Cursor cursorMain = null;
+        boolean ans = true;
+//        int tableCount = 0;
+        try {
+            cursorMain = getAllCategories();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (cursorMain != null) {
+                cursorMain.moveToFirst();
+                for (; !cursorMain.isAfterLast(); cursorMain.moveToNext()) {
+//                    tableCount++;
+                    int expectedCount = cursorMain.getInt(5);
+                    int realCount = 0;
+                    Cursor tableCursor = null;
+                    try {
+                        tableCursor = getCards(cursorMain);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        ans = false;
+                    } finally {
+                        if (tableCursor != null) {
+                            tableCursor.moveToFirst();
+                            for (; !tableCursor.isAfterLast(); tableCursor.moveToNext()) {
+                                realCount++;
+                            }
+                            tableCursor.close();
+                        }
+                    }
+                    System.out.println("expected count: " + expectedCount + " and real cont is: " + realCount);
+                    if (expectedCount != realCount) {
+                        ans = false;
+                        break;
+                    }
+                }
+                cursorMain.close();
+            } else {
+                ans = false;
+            }
+        }
+//        String json = DBCreator.jsonImport(context, "main.json");
+//        JsonFactory factory = new JsonFactory();
+//        JsonParser parser = null;
+//        try {
+//            parser = factory.createParser(json);
+//            JsonToken token = parser.nextToken();
+//            while (true) {
+//                if (token.asString().equals("tables")) {
+//                    int abc = parser.nextIntValue(0);
+//                    System.out.println("parser value is " + abc);
+//                    if (abc != tableCount) {
+//                        ans = false;
+//                    }
+//                    break;
+//                }
+//                parser.nextToken();
+//            }
+//        } catch (IOException ignored) {
+//        } finally {
+//            if (parser != null) {
+//                try {
+//                    parser.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//        }
+//        System.out.println("table count: " + tableCount);
+        return ans;
     }
 
     public Cursor getAllCategories() {
@@ -80,7 +163,7 @@ public class CardList {
         for (; !auxCursor.isAfterLast(); auxCursor.moveToNext()) {
             result += new Card(auxCursor).rating;
         }
-        System.out.println("result is:" + result);
+//        System.out.println("result is:" + result);
         auxCursor.close();
         return result;
     }

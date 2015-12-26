@@ -54,7 +54,12 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
             startActivity(intent);
             return;
         }
-
+        System.out.println("db finished condition: " + cardList.isValid());
+        if (!cardList.isValid()){
+            Intent intent = new Intent(context, DBCreator.class);
+            startActivity(intent);
+            return;
+        }
         listInit(cardList);
     }
 
