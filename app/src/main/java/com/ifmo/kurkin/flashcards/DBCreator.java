@@ -172,6 +172,8 @@ public class DBCreator extends ProgressTaskActivity {
                     URL url = new URL("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key="
                             + API_KEY + TAG_SEARCH + tag.replace(" ", "_") + EXTRA + "&per_page=1&page=1&format=json&nojsoncallback=1");
                     connection = (HttpsURLConnection) url.openConnection();
+                    connection.setReadTimeout(5000);
+                    connection.setConnectTimeout(3000);
                     connection.connect();
                     InputStream res = null;
                     res = connection.getInputStream();
@@ -209,6 +211,7 @@ public class DBCreator extends ProgressTaskActivity {
                     }
                 }
                 URL url = new URL("https://farm" + farmId + ".staticflickr.com/" + serverId + "/" + id + "_" + secret + ".jpg");
+                System.out.println(tag+"'s picute; "+" "+url);
                 InputStream input = null;
                 try {
                     input = url.openStream();
@@ -235,6 +238,7 @@ public class DBCreator extends ProgressTaskActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            System.out.print("finished load picture; ");
             return path;
         }
 
@@ -242,10 +246,6 @@ public class DBCreator extends ProgressTaskActivity {
             main = new ArrayList<>();
             parser.nextToken();
             while (!parser.nextToken().equals(JsonToken.END_OBJECT)) {
-//                if (parser.getCurrentName().equals("tables")){
-//                    parser.nextToken();
-//                    parser.nextToken();
-//                }
                 System.out.println("table number is " + parser.getCurrentName());
                 parser.nextToken();
                 main.add(readColumn(parser));
@@ -255,6 +255,7 @@ public class DBCreator extends ProgressTaskActivity {
         ArrayList<String> readColumn(JsonParser parser) throws IOException {
             ArrayList<String> sub = new ArrayList<>();
             while (!parser.nextToken().equals(JsonToken.END_OBJECT)) {
+//                System.out.println(parser.getCurrentName());
                 parser.nextToken();
                 sub.add(parser.getText());
             }

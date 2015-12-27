@@ -1,0 +1,102 @@
+{
+  "0": {
+    "lang1": "Egg",
+    "lang2": "Яйцо"
+  },
+  "1": {
+    "lang1": "Prunes",
+    "lang2": "Чернослив"
+  },
+  "2": {
+    "lang1": "Beer",
+    "lang2": "Пиво"
+  },
+  "3": {
+    "lang1": "Cream",
+    "lang2": "Сливки"
+  },
+  "4": {
+    "lang1": "Cheese",
+    "lang2": "Сыр"
+  },
+  "5": {
+    "lang1": "Milk",
+    "lang2": "Молоко"
+  },
+  "6": {
+    "lang1": "Kvass",
+    "lang2": "Квас"
+  },
+  "7": {
+    "lang1": "Grease",
+    "lang2": "Жир"
+  },
+  "8": {
+    "lang1": "Salt",
+    "lang2": "Соль"
+  },
+  "9": {
+    "lang1": "Coffee",
+    "lang2": "Кофе"
+  },
+  "10": {
+    "lang1": "Sausage",
+    "lang2": "Колбаса"
+  },
+  "11": {
+    "lang1": "Duck",
+    "lang2": "Утка"
+  },
+  "12": {
+    "lang1": "Stuffing",
+    "lang2": "Фарш"
+  },
+  "13": {
+    "lang1": "Fish",
+    "lang2": "Рыба"
+  },
+  "14": {
+    "lang1": "Yeast",
+    "lang2": "Дрожжи"
+  },
+  "15": {
+    "lang1": "Ham",
+    "lang2": "Ветчина"
+  },
+  "16": {
+    "lang1": "Chocolate",
+    "lang2": "Шоколад"
+  },
+  "17": {
+    "lang1": "Sugar",
+    "lang2": "Сахар"
+  },
+  "18": {
+    "lang1": "Kefir",
+    "lang2": "Кефир"
+  },
+  "19": {
+    "lang1": "Cocoa",
+    "lang2": "Какао"
+  },
+  "20": {
+    "lang1": "Juice",
+    "lang2": "Сок"
+  },
+  "21": {
+    "lang1": "Starch",
+    "lang2": "Крахмал"
+  },
+  "22": {
+    "lang1": "Mayonnaise",
+    "lang2": "Майонез"
+  },
+  "23": {
+    "lang1": "Gelatin(e)",
+    "lang2": "Желатин"
+  },
+  "24": {
+    "lang1": "Flour",
+    "lang2": "Мука"
+  }
+}

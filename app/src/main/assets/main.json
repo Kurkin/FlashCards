@@ -4,20 +4,34 @@
     "lang_from": "animals",
     "lang_to": "животные",
     "type": "EN_RU",
-	"count": "7"
+    "count": "7"
   },
   "1": {
-    "name": "animals_FR_RU",
-    "lang_from": "animaux",
-    "lang_to": "животные",
-    "type": "FR_RU",
-	"count": "4"
+    "name": "dishes_EN_RU",
+    "lang_from": "dishes",
+    "lang_to": "продукты",
+    "type": "EN_RU",
+    "count": "25"
   },
   "2": {
+    "name": "animals_EN_FR",
+    "lang_from": "animals",
+    "lang_to": "animaux",
+    "type": "EN_FR",
+    "count": "27"
+  },
+  "3": {
+    "name": "house_EN_DE",
+    "lang_from": "house",
+    "lang_to": "haus",
+    "type": "EN_DE",
+    "count": "23"
+  },
+  "4": {
     "name": "food_EN_RU",
     "lang_from": "food",
     "lang_to": "еда",
     "type": "EN_RU",
-	"count": "4"
+    "count": "4"
   }
 }

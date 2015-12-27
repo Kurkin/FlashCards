@@ -57,7 +57,6 @@ public class CardList {
    public boolean isValid() {
         Cursor cursorMain = null;
         boolean ans = true;
-//        int tableCount = 0;
         try {
             cursorMain = getAllCategories();
         } catch (Exception e) {
@@ -67,7 +66,6 @@ public class CardList {
             if (cursorMain != null) {
                 cursorMain.moveToFirst();
                 for (; !cursorMain.isAfterLast(); cursorMain.moveToNext()) {
-//                    tableCount++;
                     int expectedCount = cursorMain.getInt(5);
                     int realCount = 0;
                     Cursor tableCursor = null;
@@ -96,35 +94,6 @@ public class CardList {
                 ans = false;
             }
         }
-//        String json = DBCreator.jsonImport(context, "main.json");
-//        JsonFactory factory = new JsonFactory();
-//        JsonParser parser = null;
-//        try {
-//            parser = factory.createParser(json);
-//            JsonToken token = parser.nextToken();
-//            while (true) {
-//                if (token.asString().equals("tables")) {
-//                    int abc = parser.nextIntValue(0);
-//                    System.out.println("parser value is " + abc);
-//                    if (abc != tableCount) {
-//                        ans = false;
-//                    }
-//                    break;
-//                }
-//                parser.nextToken();
-//            }
-//        } catch (IOException ignored) {
-//        } finally {
-//            if (parser != null) {
-//                try {
-//                    parser.close();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        }
-//        System.out.println("table count: " + tableCount);
         return ans;
     }
 
