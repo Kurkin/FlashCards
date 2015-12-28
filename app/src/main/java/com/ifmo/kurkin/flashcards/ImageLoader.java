@@ -18,7 +18,7 @@ import javax.net.ssl.HttpsURLConnection;
 /**
  * Created by Borys on 29-12-15.
  */
-public class ImageLoader extends AsyncTask<String, Void, Void> {
+public class ImageLoader extends AsyncTask<String, Void, String> {
 
     private static final String API_KEY = "81ffa832353a3a6a10c1edc26e9b975f";
     private static final String TAG_SEARCH = "&tags=";
@@ -116,15 +116,15 @@ public class ImageLoader extends AsyncTask<String, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(String[] params) {
+    protected String doInBackground(String[] params) {
         String path = imageLoad(params[2]);
         CardList cl = new CardList(activity.getApplicationContext());
         cl.updatePicture(Integer.parseInt(params[0]),Integer.parseInt(params[1]),path);
-        return null;
+        return path;
     }
 
     @Override
-    protected void onPostExecute(Void v) {
-        activity.updateUI();
+    protected void onPostExecute(String v) {
+        activity.updateUI(v);
     }
 }

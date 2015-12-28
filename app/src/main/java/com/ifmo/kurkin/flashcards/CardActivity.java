@@ -5,5 +5,6 @@ import android.app.Activity;
 /**
  * Created by Borys on 29-12-15.
  */
-abstract class CardActivity extends Activity implements UIActivity{
+abstract class CardActivity extends Activity {
+    abstract void updateUI(String path);
 }
