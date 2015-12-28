@@ -42,7 +42,7 @@
                 android:id="@+id/image"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:scaleType="fitStart"
+                android:scaleType="center"
                 android:layout_alignParentTop="true" />
 
         </RelativeLayout>
