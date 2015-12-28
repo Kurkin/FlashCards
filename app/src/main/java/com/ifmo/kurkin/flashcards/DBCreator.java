@@ -14,23 +14,28 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
-import android.app.ActionBar;
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 
 import javax.net.ssl.HttpsURLConnection;
 
 
 public class DBCreator extends ProgressTaskActivity {
 
+    private Activity activity;
+    private  ImageLoader il = new ImageLoader(null);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setDisplayHomeAsEnabled(false);
+        this.activity = this;
     }
 
     public void setDisplayHomeAsEnabled(boolean enabled) {
@@ -108,7 +113,7 @@ public class DBCreator extends ProgressTaskActivity {
                             parser.nextToken();
                             values.add(parser.getText());
                         }
-                        values.add(imageLoad(values.get(1)));
+                        values.add(il.imageLoad(values.get(1)));
                         flashCardImporter.insertCard(values);
                     }
                     db.setTransactionSuccessful();
@@ -159,89 +164,6 @@ public class DBCreator extends ProgressTaskActivity {
             System.out.println("init time:" + (System.currentTimeMillis() - start));
         }
 
-        public String imageLoad(String tag) {
-            String path = "";
-            try {
-                HttpsURLConnection connection = null;
-                JsonParser parser = null;
-                String farmId = "";
-                String serverId = "";
-                String id = "";
-                String secret = "";
-                try {
-                    URL url = new URL("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key="
-                            + API_KEY + TAG_SEARCH + tag.replace(" ", "_") + EXTRA + "&per_page=1&page=1&format=json&nojsoncallback=1");
-                    connection = (HttpsURLConnection) url.openConnection();
-                    connection.setReadTimeout(5000);
-                    connection.setConnectTimeout(3000);
-                    connection.connect();
-                    InputStream res = null;
-                    res = connection.getInputStream();
-                    JsonFactory factory = new JsonFactory();
-                    parser = factory.createParser(res);
-                    JsonToken token = parser.nextToken();
-                    while (!token.equals(JsonToken.END_OBJECT)) {
-                        token = parser.nextToken();
-                        if (token.equals(JsonToken.FIELD_NAME)) {
-                            token = parser.nextToken();
-                            switch (parser.getCurrentName()) {
-                                case "id":
-                                    id = parser.getText();
-                                    break;
-                                case "server":
-                                    serverId = parser.getText();
-                                    break;
-                                case "farm":
-                                    farmId = parser.getText();
-                                    break;
-                                case "secret":
-                                    secret = parser.getText();
-                                    break;
-                            }
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    if (connection != null) {
-                        connection.disconnect();
-                    }
-                    if (parser != null) {
-                        parser.close();
-                    }
-                }
-                URL url = new URL("https://farm" + farmId + ".staticflickr.com/" + serverId + "/" + id + "_" + secret + ".jpg");
-                System.out.println(tag+"'s picute; "+" "+url);
-                InputStream input = null;
-                try {
-                    input = url.openStream();
-                    File storagePath = Environment.getExternalStorageDirectory();
-                    path = storagePath + "/.flashcards/" + tag.replace(" ", "_") + id + ".jpg";
-                    OutputStream output = null;
-                    try {
-                        output = new FileOutputStream(storagePath + "/.flashcards/" + tag.replace(" ", "_") + id + ".jpg");
-                        byte[] buffer = new byte[16000];
-                        int bytesRead;
-                        while ((bytesRead = input.read(buffer, 0, buffer.length)) >= 0) {
-                            output.write(buffer, 0, bytesRead);
-                        }
-                    } finally {
-                        if (output != null) {
-                            output.close();
-                        }
-                    }
-                } finally {
-                    if (input != null) {
-                        input.close();
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            System.out.print("finished load picture; ");
-            return path;
-        }
-
         void readMain(JsonParser parser) throws IOException {
             main = new ArrayList<>();
             parser.nextToken();
@@ -259,7 +181,7 @@ public class DBCreator extends ProgressTaskActivity {
                 parser.nextToken();
                 sub.add(parser.getText());
             }
-            sub.add(imageLoad(sub.get(1)));
+            sub.add(il.imageLoad(sub.get(1)));
             totalCount += Integer.parseInt(sub.get(4));
             return sub;
 
