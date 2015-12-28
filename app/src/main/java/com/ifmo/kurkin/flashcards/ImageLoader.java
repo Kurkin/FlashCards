@@ -25,9 +25,9 @@ public class ImageLoader extends AsyncTask<String, Void, Void> {
     private static final String TEXT_SEARCH = "&text=";
     private static final String EXTRA_CARDS = "&extras=url_q";
     private String EXTRA = "";
-    private UIActivity activity;
+    private CardActivity activity;
 
-    ImageLoader(UIActivity activity){
+    ImageLoader(CardActivity activity){
         this.activity = activity;
     }
 
@@ -111,12 +111,15 @@ public class ImageLoader extends AsyncTask<String, Void, Void> {
             e.printStackTrace();
         }
         System.out.print("finished load picture; ");
+
         return path;
     }
 
     @Override
     protected Void doInBackground(String[] params) {
-        imageLoad((String)params[0]);
+        String path = imageLoad(params[2]);
+        CardList cl = new CardList(activity.getApplicationContext());
+        cl.updatePicture(Integer.parseInt(params[0]),Integer.parseInt(params[1]),path);
         return null;
     }
 

@@ -153,6 +153,23 @@ public class CardList {
             }
         }
     }
+    public void updatePicture(int idTable, int id, String newPath) {
+        String table = getCategoryName(idTable);
+        Cursor cursor = null;
+        try {
+            cursor = db.query(table, new String[]{"*"}, ID + "=?", new String[]{Integer.toString(id)}, null, null, null);
+        } finally {
+            if (cursor != null) {
+                cursor.moveToFirst();
+                String strSQL = "UPDATE " + table + " SET image = " + (newPath) + " WHERE " + ID + " = " + id;
+                db.execSQL(strSQL);
+                try {
+                    cursor.close();
+                } catch (Exception ignored) {
+                }
+            }
+        }
+    }
 
     public void incRating(int categoryID, int cardId) {
         Cursor categoryCursor = getCategoryCursor(categoryID);

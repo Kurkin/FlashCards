@@ -101,8 +101,10 @@ public class DBCreator extends ProgressTaskActivity {
                     flashCardImporter = new FlashCardImporter(db, name);
                     db.beginTransaction();
                     parser.nextToken();
+                    int cardNumber = 0;
                     while (!parser.nextToken().equals(JsonToken.END_OBJECT)) {
                         it++;
+                        cardNumber++;
                         int newProgress = 100 * it / totalCount;
                         System.out.println("initializing, " + newProgress + " %");
                         this.onProgressChanged(newProgress);
