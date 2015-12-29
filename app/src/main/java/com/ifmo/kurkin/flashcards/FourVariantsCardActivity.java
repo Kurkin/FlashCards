@@ -160,10 +160,13 @@ public abstract class FourVariantsCardActivity extends Activity {
 
         setTitle(card, word);
 
-        File pic = new File(card.picture);
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        Bitmap bitmap = BitmapFactory.decodeFile(pic.getAbsolutePath(),bmOptions);
-        image.setImageBitmap(bitmap);
+        try {
+            File pic = new File(card.picture);
+            Bitmap bitmap = BitmapFactory.decodeFile(pic.getAbsolutePath());
+            image.setImageBitmap(bitmap);
+        } catch (Exception e) {
+            image.setImageDrawable(getResources().getDrawable(R.drawable.noimage));
+        }
 
         for (int i = 0; i < vars.length; i++) {
             setVar(testSet.first[i], vars[i]);

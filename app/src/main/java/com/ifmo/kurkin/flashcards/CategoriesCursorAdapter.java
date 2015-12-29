@@ -45,12 +45,17 @@ public class CategoriesCursorAdapter extends CursorAdapter {
         ((TextView) view.findViewById(R.id.native_title)).setText(name2);
 
         ImageView icon = (ImageView) view.findViewById(R.id.category_icon);
-        File pic = new File(cursor.getString(6));
-//        System.out.println(id+" "+name+" "+cursor.getString(2)+" "+cursor.getString(3)+" "+cursor.getString(4)+" "+cursor.getString(5)+" "+cursor.getString(6));
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        Bitmap bitmap = BitmapFactory.decodeFile(pic.getAbsolutePath(), bmOptions);
-        bitmap = Bitmap.createScaledBitmap(bitmap, 120, 120, true);
-        icon.setImageBitmap(bitmap);
+
+        try {
+            File pic = new File(cursor.getString(6));
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            Bitmap bitmap = BitmapFactory.decodeFile(pic.getAbsolutePath(), bmOptions);
+            bitmap = Bitmap.createScaledBitmap(bitmap, 120, 120, true);
+            icon.setImageBitmap(bitmap);
+        } catch (Exception e) {
+            icon.setImageDrawable(context.getResources().getDrawable(R.drawable.noimage));
+        }
+
 
         int total = cursor.getInt(5);
         int learned = new CardList(context).getCategoryRating(id);
