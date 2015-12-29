@@ -87,7 +87,7 @@ public class ImageLoader extends AsyncTask<String, Void, String> {
             InputStream input = null;
             try {
                 input = url.openStream();
-                File storagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                File storagePath = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString()+"/.flashcards/");
                 path = storagePath +  tag.replace(" ", "_") + id + ".jpg";
                 OutputStream output = null;
                 try {
