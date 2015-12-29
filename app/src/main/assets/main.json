@@ -1,31 +1,31 @@
 {
   "0": {
-    "name": "animals_EN_RU",
-    "lang_from": "animals",
-    "lang_to": "животные",
-    "type": "EN_RU",
-    "count": "7"
-  },
-  "1": {
     "name": "dishes_EN_RU",
     "lang_from": "dishes",
     "lang_to": "продукты",
     "type": "EN_RU",
     "count": "25"
   },
-  "2": {
+  "1": {
     "name": "animals_EN_FR",
     "lang_from": "animals",
     "lang_to": "animaux",
     "type": "EN_FR",
     "count": "27"
   },
-  "3": {
+  "2": {
     "name": "house_EN_DE",
     "lang_from": "house",
     "lang_to": "haus",
     "type": "EN_DE",
     "count": "23"
+  },
+  "3": {
+    "name": "animals_EN_RU",
+    "lang_from": "animals",
+    "lang_to": "животные",
+    "type": "EN_RU",
+    "count": "7"
   },
   "4": {
     "name": "food_EN_RU",
